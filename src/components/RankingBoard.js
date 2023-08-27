@@ -23,14 +23,14 @@ function RankingBoard() {
 
   return (
     <div>
-            <NavbarComponent onSelect={handleSelectPeriod} />
+      <NavbarComponent onSelect={handleSelectPeriod} />
 
-    <div className="ranking-board-container">
-      <h1 style={{ paddingTop: '32px'}}>{selectedPeriod}</h1>
-      <div className="centered-table-container">
-        <DataTable selectedPeriod={selectedPeriod} />
+      <div className="ranking-board-container">
+        <h1 style={{ paddingTop: '32px'}}>{selectedPeriod === "All" ? "All Developers" : selectedPeriod}</h1>
+        <div className="centered-table-container">
+          <DataTable selectedPeriod={selectedPeriod} />
+        </div>
       </div>
-    </div>
     </div>
   );
 }
