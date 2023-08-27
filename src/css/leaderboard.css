@@ -1,0 +1,115 @@
+/* leaderboard.css */
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+  }
+  
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 12px 16px;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+  
+  .leaderboard-table th {
+    font-weight: bold;
+  }
+  
+  .leaderboard-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .leaderboard-table tbody tr:hover {
+    background-color: #ffd700; /* Gold background on hover */
+    color: #fff; /* White text color on hover */
+  }
+
+  
+  .leaderboard-table tbody tr:first-child {
+    animation: glowing 2s infinite; /* Apply the glowing animation to the first row */
+    position: relative; /* Set position to enable z-index */
+    z-index: 1; /* Ensure the second row appears above other rows */
+  }
+  
+  @keyframes glowing {
+    0% {
+      background-color: #ffe684; /* Initial background color */
+      box-shadow: 0 0 5px #ffe684, 0 0 20px #ffe684; /* Initial box shadow with inner and outer glows */
+      border: 1px solid #ffe684; /* Initial border */
+    }
+    25% {
+      background-color: #ffd700; /* Transition to mid-animation background color */
+      box-shadow: 0 0 10px #ffd700, 0 0 30px #ffd700; /* Transition to mid-animation box shadow with larger glows */
+      border: 1px solid #ffd700; /* Transition to mid-animation border */
+    }
+    50% {
+      background-color: #ffd700; /* Mid-animation background color */
+      box-shadow: 0 0 10px #ffd700, 0 0 30px #ffd700; /* Mid-animation box shadow with larger glows */
+      border: 1px solid #ffd700; /* Mid-animation border */
+    }
+    75% {
+      background-color: #ffcc00; /* Transition to final background color */
+      box-shadow: 0 0 5px #ffcc00, 0 0 20px #ffcc00; /* Transition to final box shadow with inner and outer glows */
+      border: 1px solid #ffcc00; /* Transition to final border */
+    }
+    100% {
+      background-color: #ffe684; /* Final background color */
+      box-shadow: 0 0 5px #ffe684, 0 0 20px #ffe684; /* Final box shadow with inner and outer glows */
+      border: 1px solid #ffe684; /* Final border */
+    }
+  }
+
+
+  /* leaderboard.css */
+
+.ranking-board-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    min-height: 100vh;
+  }
+  
+  .centered-table-container {
+    width: 90%; /* Adjust the width to control how much of the screen the table occupies */
+    max-width: 1200px; /* Set a maximum width for larger screens */
+    margin-top: 20px;
+  }
+
+
+.leaderboard-table td:nth-child(1) {
+  /* Styles for the first column (Rank) */
+  font-weight: bold;
+}
+
+.name-with-image {
+    display: flex;
+    align-items: center;
+  }
+  .decor {
+    display: flex;
+    align-items: right;
+  }
+  .rank-icon {
+    width: 30px; /* Adjust the image width as needed */
+    height: 30px; /* Adjust the image height as needed */
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+
+  .winner-text {
+    color: green; /* Adjust the color as needed */
+    margin-left: 10px; /* Adjust the margin as needed */
+  }
+
+  .points-with-text {
+    display: flex;
+    align-items: center;
+  }
+  
+  .points-text {
+    margin-right: 5px; /* Adjust the margin as needed */
+    font-style:italic;
+    font-weight: bold; /* Adjust the font weight as needed */
+  }

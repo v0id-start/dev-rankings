@@ -5,7 +5,7 @@ import { ref, getDownloadURL} from "firebase/storage";
 import Papa from "papaparse";
 import { Table } from 'react-bootstrap';
 import DataTable from './DataTable';
-
+import '../css/leaderboard.css'
 
 // Get a reference to the storage service, which is used to create references in your storage bucket
 
@@ -18,17 +18,19 @@ function RankingBoard() {
     // This state will store the parsed data
 
     const handleSelectPeriod = (periodName) => {
-        console.log('Selected item:', periodName);
         selectPeriod(periodName);
     };
 
   return (
     <div>
-      <NavbarComponent onSelect={handleSelectPeriod} />
-      <h1>{selectedPeriod}</h1>
-      <div>
-      <DataTable />
+            <NavbarComponent onSelect={handleSelectPeriod} />
+
+    <div className="ranking-board-container">
+      <h1 style={{ paddingTop: '32px'}}>{selectedPeriod}</h1>
+      <div className="centered-table-container">
+        <DataTable selectedPeriod={selectedPeriod} />
       </div>
+    </div>
     </div>
   );
 }
