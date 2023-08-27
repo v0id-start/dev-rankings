@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Papa from 'papaparse';
 import storage from '../firebase';
 import { ref, getDownloadURL } from "firebase/storage";
-import { Table } from 'react-bootstrap';
+import { Table, ProgressBar } from 'react-bootstrap';
 import '../css/leaderboard.css'
 
 const DataTable = ({selectedPeriod}) => {
@@ -71,9 +71,17 @@ const DataTable = ({selectedPeriod}) => {
     }
   }
 
+  function getNextThreshold(numPoints) {
+    if (numPoints < 300)
+        return 300;
+    if (numPoints < 900)
+        return 900;
+    return 1000
+    }
+
   // Filter the CSV data based on the selectedPeriod
   const filteredData = csvData.filter((row) =>
-    selectedPeriod === "All" ? true : "Period " + row.Period === selectedPeriod
+    selectedPeriod === "All" ? true : "Team " + row.Period === selectedPeriod
   ).sort((a, b) => b.Points - a.Points); // Sort in descending order of Points
 
 
@@ -92,7 +100,12 @@ const DataTable = ({selectedPeriod}) => {
       </div>
     ),
   }));
+/*
+IDEA:
+I can make a progress bar to the next level for each person.
 
+from gpt code for progress bar, use this
+*/
   
   return (
     <div>
@@ -102,6 +115,7 @@ const DataTable = ({selectedPeriod}) => {
             <th>Rank</th>
             <th>Name</th>
             <th>Points</th>
+            <th>Promotion Progress</th>
             <th>Period</th>
           </tr>
         </thead>
@@ -119,9 +133,12 @@ const DataTable = ({selectedPeriod}) => {
                 </td>
                 <td>
                 <div className="points-with-text">
-                  <span className="points-text">{getTitleFromPoints(row.Points)} - </span>
-                  <span style={{fontWeight: 'bold'}}>{row.Points}</span>
+                  <span className="points-text">{getTitleFromPoints(row.Points)} -</span>
+                  <span className="points-value">{row.Points}</span>
                 </div>
+              </td>
+              <td>
+                <ProgressBar variant="custom" className="custom-progress-bar"  now={(row.Points / getNextThreshold(row.Points)) * 100} />
               </td>
               <td style={{fontWeight: 'bold'}}>{row.Period}</td>
             </tr>
