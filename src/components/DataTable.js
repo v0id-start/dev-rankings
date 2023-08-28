@@ -9,9 +9,21 @@ const DataTable = ({selectedPeriod}) => {
   const [csvData, setCsvData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  let lvl1URL = "https://firebasestorage.googleapis.com/v0/b/dev-rankings-397001.appspot.com/o/images%2Fdev_icon_1.png?alt=media&token=90972564-6e39-4b55-951d-028359388761"; 
-  let lvl2URL = "https://firebasestorage.googleapis.com/v0/b/dev-rankings-397001.appspot.com/o/images%2Fdev_icon_2.png?alt=media&token=6ebe8e13-7bdc-412e-8425-556d7fdfcc08";
-  let lvl3URL = "https://firebasestorage.googleapis.com/v0/b/dev-rankings-397001.appspot.com/o/images%2Fdev_icon_3.png?alt=media&token=efee4723-5d7c-45db-b15c-434f8c1a6894";
+  let internIconURL = "https://firebasestorage.googleapis.com/v0/b/dev-rankings-397001.appspot.com/o/images%2Fintern_icon.png?alt=media&token=2f91672c-ee81-4657-8c7f-4c05e58d0ec1"; 
+  let jrIconURL = "https://firebasestorage.googleapis.com/v0/b/dev-rankings-397001.appspot.com/o/images%2Fjr_dev_icon.png?alt=media&token=80f78451-4437-4c81-a61b-122fc07cd510";
+  let dev1IconURL = "https://firebasestorage.googleapis.com/v0/b/dev-rankings-397001.appspot.com/o/images%2Fdev_1_icon.png?alt=media&token=2a8b6c96-c850-40d9-8937-0723d07d7f7a";
+  let dev2IconURL = "https://firebasestorage.googleapis.com/v0/b/dev-rankings-397001.appspot.com/o/images%2Fdev_2_icon.png?alt=media&token=b3d28084-6255-4de9-b7b9-b27e4f9bd016";
+  let dev3IconURL = "https://firebasestorage.googleapis.com/v0/b/dev-rankings-397001.appspot.com/o/images%2Fdev_3_icon.png?alt=media&token=2d00fc11-f12f-4326-ad2a-473e953ed6e7";
+  let srIconURL = "https://firebasestorage.googleapis.com/v0/b/dev-rankings-397001.appspot.com/o/images%2Fsr_dev_icon.png?alt=media&token=77054d05-5044-40a9-a88c-3d10020e9e5d";
+  let guruIconURL = "https://firebasestorage.googleapis.com/v0/b/dev-rankings-397001.appspot.com/o/images%2Fguru_icon.png?alt=media&token=0f3d6f11-116f-43eb-bf23-346a57e0e690";
+  
+  const INTERN_THRESH = 100;
+  const JR_THRESH = 200;
+  const DEV_1_THRESH = 300;
+  const DEV_2_THRESH = 400;
+  const DEV_3_THRESH = 500;
+  const SENIOR_THRESH = 600;
+
   const fetchCsvFile = async () => {
     console.log("FETCHING");
     const csvFileRef = ref(storage, 'student_data_small.csv');
@@ -47,36 +59,65 @@ const DataTable = ({selectedPeriod}) => {
   }
 
   function getRankImgURL(numPoints) {
-    if (numPoints < 300) {
-        return lvl1URL;
-    } else if (numPoints < 900) {
-        return lvl2URL;
+    if (numPoints < INTERN_THRESH) {
+        return internIconURL;
+    } else if (numPoints < JR_THRESH) {
+        return jrIconURL;
+    }
+    else if (numPoints < DEV_1_THRESH) {
+        return dev1IconURL;
+    }
+    else if (numPoints < DEV_2_THRESH){
+        return dev2IconURL;
+    }
+    else if (numPoints < DEV_3_THRESH){
+        return dev3IconURL;
+    }
+    else if (numPoints < SENIOR_THRESH){
+        return srIconURL;
     }
     else {
-        return lvl3URL;
+        return guruIconURL;
     }
   }
 
   function getTitleFromPoints(numPoints) {
-    if (numPoints < 300) {
+    if (numPoints < INTERN_THRESH) {
         return "Intern";
-    } else if (numPoints < 900) {
-        return "Junior Engineer";
+    } else if (numPoints < JR_THRESH) {
+        return "Jr Developer";
     }
-    else if (numPoints < 980) {
-        return "Senior Engineer";
+    else if (numPoints < DEV_1_THRESH) {
+        return "Developer I";
+    }
+    else if (numPoints < DEV_2_THRESH){
+        return "Developer II";
+    }
+    else if (numPoints < DEV_3_THRESH){
+        return "Developer III";
+    }
+    else if (numPoints < SENIOR_THRESH){
+        return "Developer II";
     }
     else {
-        return "Guru";
+        return "Guru"
     }
   }
 
   function getNextThreshold(numPoints) {
-    if (numPoints < 300)
-        return 300;
-    if (numPoints < 900)
-        return 900;
-    return 1000
+    if (numPoints < INTERN_THRESH)
+        return INTERN_THRESH;
+    if (numPoints < JR_THRESH)
+        return JR_THRESH;
+    if (numPoints < DEV_1_THRESH)
+        return DEV_1_THRESH;
+    if (numPoints < DEV_2_THRESH)
+        return DEV_2_THRESH;
+    if (numPoints < DEV_3_THRESH)
+        return DEV_3_THRESH;
+    if (numPoints < SENIOR_THRESH)
+        return SENIOR_THRESH;
+    return 600
     }
 
   // Filter the CSV data based on the selectedPeriod
