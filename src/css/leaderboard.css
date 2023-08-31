@@ -129,6 +129,19 @@
 
   .custom-progress-bar {
     background-color: #d9d8d8;
-    border-radius: 10px; /* Rounded corners */
+    border-radius: 15px; /* Rounded corners */
   }
   
+  .input-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-group .form-control {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .input-group .btn {
+    min-width: 120px;
+  }
