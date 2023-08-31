@@ -1,11 +1,12 @@
 import React from 'react';
-import { useState } from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'; // Import Navbar components from Bootstrap
 
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 
 function NavbarComponent({selectedPeriod, onSelect}) {
+  const periods = ["1", "2", "3", "4", "5", "6"]
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary" style={{ fontSize: '32px'}}>
       
@@ -21,14 +22,9 @@ function NavbarComponent({selectedPeriod, onSelect}) {
 
                 <NavDropdown.Divider />
 
-                {/* TODO Fix Lazy Dropdown */}
-                <NavDropdown.Item eventKey={"Team 1"}>1</NavDropdown.Item>
-                <NavDropdown.Item eventKey={"Team 2"}>2</NavDropdown.Item>
-                <NavDropdown.Item eventKey={"Team 3"}>3</NavDropdown.Item>
-                <NavDropdown.Item eventKey={"Team 4"}>4</NavDropdown.Item>
-                <NavDropdown.Item eventKey={"Team 5"}>5</NavDropdown.Item>
-                <NavDropdown.Item eventKey={"Team 6"}>6</NavDropdown.Item>
-              
+                {periods.map((period, index) => (
+                  <NavDropdown.Item key={period} eventKey={period}>{period}</NavDropdown.Item>
+                ))}
 
             </NavDropdown>
           </Nav>

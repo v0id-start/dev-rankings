@@ -1,9 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import NavbarComponent from './NavbarComponent';
-import { ref, getDownloadURL} from "firebase/storage";
-import Papa from "papaparse";
-import { Table } from 'react-bootstrap';
 import DataTable from './DataTable';
 import '../css/leaderboard.css'
 
@@ -26,7 +23,7 @@ function RankingBoard() {
       <NavbarComponent onSelect={handleSelectPeriod} />
 
       <div className="ranking-board-container">
-        <h1 style={{ paddingTop: '32px'}}>{selectedPeriod === "All" ? "All Developers" : selectedPeriod}</h1>
+        <h1 style={{ paddingTop: '32px'}}>{selectedPeriod === "All" ? "All Developers" : "Team " + selectedPeriod}</h1>
         <div className="centered-table-container">
           <DataTable selectedPeriod={selectedPeriod} />
         </div>
