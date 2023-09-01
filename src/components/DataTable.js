@@ -7,7 +7,7 @@ import firebase from 'firebase/compat/app';
 
 import { getRankImgURL, getTitleFromPoints, getNextThreshold } from '../constants';
 
-const DataTable = ({selectedPeriod}) => {
+const DataTable = ({selectedPeriod, userEmail}) => {
     const [users, setUsers] = useState([]);
     const [pointsInputs, setPointsInputs] = useState({}); // Store points inputs separately
 
@@ -53,6 +53,9 @@ const DataTable = ({selectedPeriod}) => {
         }));
       };
   
+    const isAdmin =
+      userEmail === 'team.ranking.dev@gmail.com' ||
+      userEmail === 'tiffany.price@esd401.org';
 
   return (
     <div>
@@ -64,6 +67,7 @@ const DataTable = ({selectedPeriod}) => {
             <th>Points</th>
             <th>Promotion Progress</th>
             <th>Period</th>
+            {isAdmin && <th>Add Points</th>}
           </tr>
         </thead>
         <tbody>
@@ -91,7 +95,7 @@ const DataTable = ({selectedPeriod}) => {
                 </td>
                 <td>{user.Period}</td>
 
-                <td>
+                {isAdmin && <td>
                     <Form.Group className="input-group">
                         <Form.Control
                             type="number"
@@ -105,13 +109,13 @@ const DataTable = ({selectedPeriod}) => {
                             Add Points
                         </Button>
                     </Form.Group>
-            </td>
+            </td>}
 
                 </tr>
             ))}
             </tbody>
       </Table>
-      <AddDevButton/>
+      {isAdmin && <AddDevButton/>}
     </div>
   );
 };
