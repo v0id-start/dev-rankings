@@ -40,7 +40,7 @@ export function getRankImgURL(numPoints) {
     if (numPoints < INTERN_THRESH) {
         return "Intern";
     } else if (numPoints < JR_THRESH) {
-        return "Jr Developer";
+        return "Jr. Developer";
     }
     else if (numPoints < DEV_1_THRESH) {
         return "Developer I";
@@ -52,7 +52,7 @@ export function getRankImgURL(numPoints) {
         return "Developer III";
     }
     else if (numPoints < SENIOR_THRESH){
-        return "Developer II";
+        return "Sr. Developer";
     }
     else {
         return "Guru"
