@@ -29,6 +29,8 @@ function RankingBoard({userEmail}) {
           <DataTable selectedPeriod={selectedPeriod} userEmail={userEmail}/>
           <br/>
           <br/>
+          <br/>
+          <br/>
           <ThresholdInfo />
         </div>
       </div>
