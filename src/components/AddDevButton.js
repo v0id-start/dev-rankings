@@ -18,16 +18,15 @@ export default function AddDevButton() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+    if (form.checkValidity() === false || !isValidPeriodString(periodToAdd)) {
       event.preventDefault();
       event.stopPropagation();
       setValidated(true);
     }
     else {
-      console.log(nameToAdd);
       await setDoc(doc(db, "users", nameToAdd), {
         Name: nameToAdd,
-        Period: periodToAdd,
+        Period: periodToAdd.split(","),
         Points: Number(pointsToAdd)
       }).then(setValidated(true));
       setNameToAdd("");
@@ -37,6 +36,14 @@ export default function AddDevButton() {
     }
 
   };
+
+  function isValidPeriodString(input) {
+    // Define the regex pattern for a comma-separated list of numbers between 1 and 7 with no spaces
+    const pattern = /^(?:[1-7](?:,|$))+$/;
+  
+    // Test the input against the pattern
+    return pattern.test(input);
+  }
 
   return (
     <div>

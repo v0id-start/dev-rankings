@@ -14,11 +14,12 @@ const DataTable = ({selectedPeriod, userEmail}) => {
     useEffect(() => {
         const usersRef = db.collection('users');
         let query = usersRef.orderBy('Points', 'desc');
-    
+      
         if (selectedPeriod !== 'All') {
-          query = query.where('Period', '==', selectedPeriod);
+          // Use where to filter based on the selectedPeriod
+          query = query.where('Period', 'array-contains', selectedPeriod);
         }
-    
+      
         const unsubscribe = query.onSnapshot((snapshot) => {
           const usersData = snapshot.docs.map((doc) => ({
             id: doc.id,
@@ -26,7 +27,7 @@ const DataTable = ({selectedPeriod, userEmail}) => {
           }));
           setUsers(usersData);
         });
-    
+      
         return () => unsubscribe();
       }, [selectedPeriod]);
 
@@ -93,7 +94,7 @@ const DataTable = ({selectedPeriod, userEmail}) => {
                 <td>
                     <ProgressBar variant="custom" className="custom-progress-bar"  now={((user.Points - (getNextThreshold(user.Points) - 100)) / 100) * 100} />
                 </td>
-                <td>{user.Period}</td>
+                <td>{user.Period.join(", ")}</td>
 
                 {isAdmin && <td>
                     <Form.Group className="input-group">
