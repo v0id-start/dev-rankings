@@ -10,7 +10,7 @@ import '../css/leaderboard.css'
 //const memeRef = ref(storage, 'images/meme.png');
 //const memeURL = await getDownloadURL(memeRef);
 
-function RankingBoard() {
+function RankingBoard({userEmail}) {
     const [selectedPeriod, selectPeriod] = useState("All");
     // This state will store the parsed data
 
@@ -25,7 +25,7 @@ function RankingBoard() {
       <div className="ranking-board-container">
         <h1 style={{ paddingTop: '32px'}}>{selectedPeriod === "All" ? "All Developers" : "Team " + selectedPeriod}</h1>
         <div className="centered-table-container">
-          <DataTable selectedPeriod={selectedPeriod} />
+          <DataTable selectedPeriod={selectedPeriod} userEmail={userEmail}/>
         </div>
       </div>
     </div>
