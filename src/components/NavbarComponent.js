@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 
 function NavbarComponent({selectedPeriod, onSelect}) {
-  const periods = ["1", "2", "3", "4", "5", "6"]
+  const periods = ["1", "2", "3", "4", "5", "6", "7"]
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary" style={{ fontSize: '32px'}}>
