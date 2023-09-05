@@ -91,7 +91,7 @@ const DataTable = ({selectedPeriod, userEmail}) => {
               </td>
 
                 <td>
-                    <ProgressBar variant="custom" className="custom-progress-bar"  now={(user.Points / getNextThreshold(user.Points)) * 100} />
+                    <ProgressBar variant="custom" className="custom-progress-bar"  now={((user.Points - (getNextThreshold(user.Points) - 100)) / 100) * 100} />
                 </td>
                 <td>{user.Period}</td>
 
