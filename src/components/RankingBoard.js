@@ -3,6 +3,7 @@ import { useState } from 'react';
 import NavbarComponent from './NavbarComponent';
 import DataTable from './DataTable';
 import '../css/leaderboard.css'
+import ThresholdInfo from './ThresholdInfo';
 
 // Get a reference to the storage service, which is used to create references in your storage bucket
 
@@ -26,6 +27,9 @@ function RankingBoard({userEmail}) {
         <h1 style={{ paddingTop: '32px'}}>{selectedPeriod === "All" ? "All Developers" : "Team " + selectedPeriod}</h1>
         <div className="centered-table-container">
           <DataTable selectedPeriod={selectedPeriod} userEmail={userEmail}/>
+          <br/>
+          <br/>
+          <ThresholdInfo />
         </div>
       </div>
     </div>

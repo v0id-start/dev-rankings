@@ -1,29 +1,14 @@
-import { React, useEffect, useState } from 'react';
+import { React, useState } from 'react';
 
 import RankingBoard from './components/RankingBoard';
-import firebase from 'firebase/compat/app';
 import {auth} from './firebase.js';
 import 'firebaseui/dist/firebaseui.css';
-import * as firebaseui from 'firebaseui'
 import { GoogleAuthProvider, signInWithPopup } from '@firebase/auth';
 
 
 
 function App() {
   const [authEmail, setAuthEmail] = useState("");
-  /*
-  useEffect(() => {
-    const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
-    ui.start('#firebaseui-auth-container', {
-      signInOptions: [
-        // List of OAuth providers supported.
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      ],
-      // Other config options...
-    });
-
-  }, []);
-  */
 
   const signInWithGoogle = async () => {
     const googleProvider = new GoogleAuthProvider();
