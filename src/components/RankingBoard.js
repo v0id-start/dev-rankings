@@ -4,6 +4,7 @@ import NavbarComponent from './NavbarComponent';
 import DataTable from './DataTable';
 import '../css/leaderboard.css'
 import ThresholdInfo from './ThresholdInfo';
+import GainingExpTable from './GainingExpTable';
 
 // Get a reference to the storage service, which is used to create references in your storage bucket
 
@@ -31,7 +32,10 @@ function RankingBoard({userEmail}) {
           <br/>
           <br/>
           <br/>
-          <ThresholdInfo />
+          <ThresholdInfo className="info-table"/>
+          <br/>
+          <br/>
+          <GainingExpTable className="info-table"/>
         </div>
       </div>
     </div>

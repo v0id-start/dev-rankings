@@ -5,11 +5,11 @@ function ThresholdInfo() {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h1>Job Requirements</h1>
+            <h1>Dev Rankings</h1>
             <Table bordered hover style={{ maxWidth: '45%' }}>
                 <thead>
                 <tr>
-                    <th>Job Experience</th>
+                    <th>Experience</th>
                     <th>Title</th>
                 </tr>
                 </thead>
