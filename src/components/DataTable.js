@@ -4,7 +4,7 @@ import '../css/leaderboard.css';
 import AddDevButton from './AddDevButton';
 import { collection, query, where, orderBy, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
-import { isAdmin, handlePointsUpdate, handleInputChange } from '../utils/firebaseHelpers';
+import { isAdmin, handlePointsUpdate, handleInputChange, handlePeriodsUpdate } from '../utils/firebaseHelpers';
 import UserRow from './UserRow';
 
 const DataTable = ({ selectedPeriod, userEmail }) => {
@@ -68,6 +68,7 @@ const DataTable = ({ selectedPeriod, userEmail }) => {
                             isAdmin={IS_ADMIN}
                             selectedUsers={selectedUsers}
                             setSelectedUsers={setSelectedUsers}
+                            handlePeriodsUpdate={handlePeriodsUpdate}
                         />
                     ))}
                 </tbody>

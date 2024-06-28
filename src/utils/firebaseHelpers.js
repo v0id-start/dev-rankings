@@ -27,3 +27,14 @@ export const handleInputChange = (userId, value, setPointsInputs) => {
         [userId]: value,
     }));
 };
+
+export const handlePeriodsUpdate = async (userId, newPeriods) => {
+    try {
+        const userDoc = doc(db, 'users', userId);
+        await updateDoc(userDoc, {
+            Period: newPeriods,
+        });
+    } catch (error) {
+        console.error('Error updating periods:', error);
+    }
+};

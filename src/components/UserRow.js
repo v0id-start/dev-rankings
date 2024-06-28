@@ -1,13 +1,29 @@
 import React from 'react';
+import { useState } from 'react';
 import { ProgressBar, Button, Form } from 'react-bootstrap';
-import { getRankImgURL, getTitleFromPoints, getNextThreshold } from '../utils/constants';
+import { getRankImgURL, getTitleFromPoints, getNextThreshold, isValidPeriodString } from '../utils/constants';
 
-const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputChange, setPointsInputs, isAdmin, selectedUsers, setSelectedUsers }) => {
+const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputChange, setPointsInputs, isAdmin, selectedUsers, setSelectedUsers, handlePeriodsUpdate }) => {
+    const [periodInput, setPeriodInput] = useState(user.Period.join(","));
+    const [periodError, setPeriodError] = useState("");
+    
     const handleCheckboxChange = (userId, isChecked) => {
         setSelectedUsers(prevState => ({
             ...prevState,
             [userId]: isChecked
         }));
+    };
+
+    const handlePeriodsChange = (e) => {
+        const newPeriods = e.target.value;
+        setPeriodInput(newPeriods);
+
+        if (isValidPeriodString(newPeriods)) {
+            setPeriodError("");
+            handlePeriodsUpdate(user.id, newPeriods.split(',').map(period => period.trim()));
+        } else {
+            setPeriodError("Invalid input. Use numbers 1-7, comma-separated without spaces.");
+        }
     };
 
     return (
@@ -30,7 +46,20 @@ const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputCha
             <td>
                 <ProgressBar variant="custom" className="custom-progress-bar" now={((user.Points - (getNextThreshold(user.Points) - 100)) / 100) * 100} />
             </td>
-            <td>{user.Period.join(", ")}</td>
+            <td>
+                {isAdmin ? (
+                    <>
+                        <Form.Control 
+                            type="text"
+                            value={periodInput}
+                            onChange={handlePeriodsChange}
+                        />
+                        {periodError && <div style={{ color: 'red' }}>{periodError}</div>}
+                    </>
+                ) : (
+                    user.Period.join(", ")
+                )}
+            </td>
             {isAdmin && (
                 <td>
                     <Form.Group className="input-group">

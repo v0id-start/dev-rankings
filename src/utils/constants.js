@@ -52,3 +52,11 @@ export function getNextThreshold(numPoints) {
     }
     return GURU_THRESHOLD;
 }
+
+export function isValidPeriodString(input) {
+    // Define the regex pattern for a comma-separated list of numbers between 1 and 7 with no spaces
+    const pattern = /^(?:[1-7](?:,|$))+$/;
+  
+    // Test the input against the pattern
+    return pattern.test(input);
+  }
