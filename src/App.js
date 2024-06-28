@@ -3,7 +3,7 @@ import { React, useState } from 'react';
 import RankingBoard from './components/RankingBoard';
 import {auth} from './firebase/firebase.js';
 import 'firebaseui/dist/firebaseui.css';
-import { GoogleAuthProvider, signInWithPopup } from '@firebase/auth';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 
 
