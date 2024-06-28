@@ -1,5 +1,5 @@
 import { Table} from 'react-bootstrap';
-import * as CONSTANTS from '../constants.js';
+import * as CONSTANTS from '../utils/constants.js';
 
 function ThresholdInfo() {
 
