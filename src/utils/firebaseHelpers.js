@@ -1,5 +1,5 @@
 import { db } from '../firebase/firebase';
-import firebase from 'firebase/compat/app';
+import { doc, updateDoc, increment } from 'firebase/firestore';
 
 export const isAdmin = (email) => {
     return email === 'team.ranking.dev@gmail.com' || email === 'tiffany.price@esd401.org' || email === 'price.ethan.cs@gmail.com';
@@ -9,8 +9,9 @@ export const handlePointsUpdate = async (userId, newPoints, pointsInputs, setPoi
     if (!Number.isInteger(Number(newPoints))) return;
 
     try {
-        await db.collection('users').doc(userId).update({
-            Points: firebase.firestore.FieldValue.increment(Number(newPoints)),
+        const userDoc = doc(db, 'users', userId);
+        await updateDoc(userDoc, {
+            Points: increment(Number(newPoints)),
         });
         const updatedInputs = { ...pointsInputs };
         delete updatedInputs[userId];
