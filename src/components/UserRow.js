@@ -2,7 +2,14 @@ import React from 'react';
 import { ProgressBar, Button, Form } from 'react-bootstrap';
 import { getRankImgURL, getTitleFromPoints, getNextThreshold } from '../utils/constants';
 
-const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputChange, setPointsInputs, isAdmin }) => {
+const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputChange, setPointsInputs, isAdmin, selectedUsers, setSelectedUsers }) => {
+    const handleCheckboxChange = (userId, isChecked) => {
+        setSelectedUsers(prevState => ({
+            ...prevState,
+            [userId]: isChecked
+        }));
+    };
+
     return (
         <tr>
             <td>{index + 1}</td>
@@ -37,6 +44,16 @@ const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputCha
                             Add Points
                         </Button>
                     </Form.Group>
+                </td>
+            )}
+
+            {isAdmin && (
+                <td>
+                    <Form.Check
+                        type="checkbox"
+                        checked={selectedUsers[user.id] || false}
+                        onChange={(e) => handleCheckboxChange(user.id, e.target.checked)}
+                    />
                 </td>
             )}
         </tr>

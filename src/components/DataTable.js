@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, Form } from 'react-bootstrap';
 import '../css/leaderboard.css';
 import AddDevButton from './AddDevButton';
-import { collection, query, where, orderBy, onSnapshot } from 'firebase/firestore';
+import { collection, query, where, orderBy, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { isAdmin, handlePointsUpdate, handleInputChange } from '../utils/firebaseHelpers';
 import UserRow from './UserRow';
@@ -10,6 +10,9 @@ import UserRow from './UserRow';
 const DataTable = ({ selectedPeriod, userEmail }) => {
     const [users, setUsers] = useState([]);
     const [pointsInputs, setPointsInputs] = useState({});
+    const [selectedUsers, setSelectedUsers] = useState({});
+
+    const IS_ADMIN = isAdmin(userEmail);
 
     useEffect(() => {
         const usersRef = collection(db, 'users');
@@ -30,6 +33,13 @@ const DataTable = ({ selectedPeriod, userEmail }) => {
         return () => unsubscribe();
     }, [selectedPeriod]);
 
+    const handleDeleteSelectedUsers = async () => {
+        const userIds = Object.keys(selectedUsers).filter(userId => selectedUsers[userId]);
+        const deletePromises = userIds.map(userId => deleteDoc(doc(db, 'users', userId)));
+        await Promise.all(deletePromises);
+        setSelectedUsers({});
+    };
+
     return (
         <div>
             <Table className='leaderboard-table' striped bordered hover>
@@ -40,7 +50,9 @@ const DataTable = ({ selectedPeriod, userEmail }) => {
                         <th>Points</th>
                         <th>Promotion Progress</th>
                         <th>Period</th>
-                        {isAdmin(userEmail) && <th>Add Points</th>}
+                        {IS_ADMIN && <th>Add Points</th>}
+                        {IS_ADMIN && <th>Delete User</th>}
+
                     </tr>
                 </thead>
                 <tbody>
@@ -53,12 +65,25 @@ const DataTable = ({ selectedPeriod, userEmail }) => {
                             handlePointsUpdate={handlePointsUpdate}
                             handleInputChange={handleInputChange}
                             setPointsInputs={setPointsInputs}
-                            isAdmin={isAdmin(userEmail)}
+                            isAdmin={IS_ADMIN}
+                            selectedUsers={selectedUsers}
+                            setSelectedUsers={setSelectedUsers}
                         />
                     ))}
                 </tbody>
             </Table>
-            {isAdmin(userEmail) && <AddDevButton />}
+            {IS_ADMIN && <AddDevButton />}
+            {IS_ADMIN && (
+                <Button 
+                    variant="danger" 
+                    onClick={handleDeleteSelectedUsers} 
+                    disabled={!Object.values(selectedUsers).some(value => value)}
+                    style={{ marginTop: '10px' }}
+                >
+
+                Delete Selected Users
+            </Button>
+            )}
         </div>
     );
 };
