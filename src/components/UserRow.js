@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useState } from 'react';
 import { ProgressBar, Button, Form } from 'react-bootstrap';
 import { getRankImgURL, getTitleFromPoints, getNextThreshold, isValidPeriodString } from '../utils/constants';
@@ -6,7 +6,9 @@ import { getRankImgURL, getTitleFromPoints, getNextThreshold, isValidPeriodStrin
 const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputChange, setPointsInputs, isAdmin, selectedUsers, setSelectedUsers, handlePeriodsUpdate }) => {
     const [periodInput, setPeriodInput] = useState(user.Period.join(","));
     const [periodError, setPeriodError] = useState("");
-    
+
+    const inputRef = useRef(null);
+
     const handleCheckboxChange = (userId, isChecked) => {
         setSelectedUsers(prevState => ({
             ...prevState,
@@ -23,6 +25,17 @@ const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputCha
             handlePeriodsUpdate(user.id, newPeriods.split(',').map(period => period.trim()));
         } else {
             setPeriodError("Invalid input. Use numbers 1-7, comma-separated without spaces.");
+        }
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            const nextIndex = event.shiftKey ? index - 1 : index + 1;
+            const nextInput = document.querySelector(`#points-input-${nextIndex}`);
+            if (nextInput) {
+                nextInput.focus();
+            }
         }
     };
 
@@ -64,10 +77,13 @@ const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputCha
                 <td>
                     <Form.Group className="input-group">
                         <Form.Control
+                            id={`points-input-${index}`}
                             type="number"
                             placeholder="Points"
                             value={pointsInputs[user.id] || ''}
                             onChange={(e) => handleInputChange(user.id, e.target.value, setPointsInputs)}
+                            onKeyDown={handleKeyDown}
+                            ref={inputRef}
                         />
                         <Button onClick={() => handlePointsUpdate(user.id, pointsInputs[user.id], pointsInputs, setPointsInputs)}>
                             Add Points
@@ -75,7 +91,6 @@ const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputCha
                     </Form.Group>
                 </td>
             )}
-
             {isAdmin && (
                 <td>
                     <Form.Check

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Form } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import '../css/leaderboard.css';
 import AddDevButton from './AddDevButton';
 import { collection, query, where, orderBy, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
-import { isAdmin, handlePointsUpdate, handleInputChange, handlePeriodsUpdate } from '../utils/firebaseHelpers';
+import { isAdmin, handlePointsUpdate, handleInputChange, handlePeriodsUpdate, handleBulkPointsUpdate } from '../utils/firebaseHelpers';
 import UserRow from './UserRow';
 
 const DataTable = ({ selectedPeriod, userEmail }) => {
@@ -40,6 +40,10 @@ const DataTable = ({ selectedPeriod, userEmail }) => {
         setSelectedUsers({});
     };
 
+    const handleBulkUpdatePoints = async () => {
+        await handleBulkPointsUpdate(pointsInputs, setPointsInputs);
+    };
+
     return (
         <div>
             <Table className='leaderboard-table' striped bordered hover>
@@ -52,7 +56,6 @@ const DataTable = ({ selectedPeriod, userEmail }) => {
                         <th>Period</th>
                         {IS_ADMIN && <th>Add Points</th>}
                         {IS_ADMIN && <th>Delete User</th>}
-
                     </tr>
                 </thead>
                 <tbody>
@@ -75,15 +78,24 @@ const DataTable = ({ selectedPeriod, userEmail }) => {
             </Table>
             {IS_ADMIN && <AddDevButton />}
             {IS_ADMIN && (
-                <Button 
-                    variant="danger" 
-                    onClick={handleDeleteSelectedUsers} 
-                    disabled={!Object.values(selectedUsers).some(value => value)}
-                    style={{ marginTop: '10px' }}
-                >
-
-                Delete Selected Users
-            </Button>
+                <div style={{ marginTop: '10px' }}>
+                    <Button 
+                        variant="primary" 
+                        onClick={handleBulkUpdatePoints}
+                        disabled={Object.keys(pointsInputs).length === 0}
+                        style={{ marginBottom: '10px', display: 'block' }}
+                    >
+                        Update Points
+                    </Button>
+                    <Button 
+                        variant="danger" 
+                        onClick={handleDeleteSelectedUsers} 
+                        disabled={!Object.values(selectedUsers).some(value => value)}
+                        style={{ display: 'block' }}
+                    >
+                        Delete Selected Users
+                    </Button>
+                </div>
             )}
         </div>
     );
