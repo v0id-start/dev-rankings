@@ -19,7 +19,7 @@ const DataTable = ({ selectedPeriod, userEmail }) => {
         let q = query(usersRef, orderBy('Points', 'desc'));
 
         if (selectedPeriod !== 'All') {
-            q = query(usersRef, where('Period', 'array-contains', selectedPeriod), orderBy('Points', 'desc'));
+            q = query(usersRef, where('Period', 'array-contains', selectedPeriod));
         }
 
         const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -27,6 +27,15 @@ const DataTable = ({ selectedPeriod, userEmail }) => {
                 id: doc.id,
                 ...doc.data(),
             }));
+            
+            // Sort by points (desc), then by name (asc) if points are tied
+            usersData.sort((a, b) => {
+                if (b.Points === a.Points) {
+                return a.Name.localeCompare(b.Name); // Sort alphabetically by Name
+                }
+                return b.Points - a.Points; // Sort by Points descending
+            });
+
             setUsers(usersData);
         });
 
