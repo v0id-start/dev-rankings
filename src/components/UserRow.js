@@ -57,7 +57,7 @@ const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputCha
                 </div>
             </td>
             <td>
-                <ProgressBar variant="custom" className="custom-progress-bar" now={((user.Points - (getNextThreshold(user.Points) - 100)) / 100) * 100} />
+                <ProgressBar variant="custom" className="custom-progress-bar" now={user.Points >= 2500 ? 100 : ((user.Points - (getNextThreshold(user.Points) - 500)) / 500) * 100} />
             </td>
             <td>
                 {isAdmin ? (

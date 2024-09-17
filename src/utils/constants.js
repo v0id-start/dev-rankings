@@ -12,7 +12,7 @@ const thresholds = [
     { points: 1500, title: "Developer I", icon: dev1IconURL },
     { points: 2000, title: "Developer II", icon: dev2IconURL },
     { points: 2500, title: "Developer III", icon: dev3IconURL },
-    { points: 3000, title: "Sr. Developer", icon: srIconURL },
+    { points: 1000000, title: "Sr. Developer", icon: srIconURL },
 ];
 
 const GURU_THRESHOLD = 1000000;
