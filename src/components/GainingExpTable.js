@@ -14,18 +14,13 @@ function GainingExpTable() {
                 </thead>
                 <tbody>
                     <tr>
-                        <td><i>50</i></td>
-                        <td>Complete CS EHS Class (semester)</td>
+                        <td><i>300</i></td>
+                        <td>Computer Science Class (semester)</td>
                     </tr>
 
                     <tr>
-                        <td><i>20</i></td>
+                        <td><i>100</i></td>
                         <td>Certification</td>
-                    </tr>
-
-                    <tr>
-                        <td><i>1-3</i></td>
-                        <td>Project Completion</td>
                     </tr>
 
                     <tr>
@@ -34,7 +29,7 @@ function GainingExpTable() {
                     </tr>
 
                     <tr>
-                        <td><i>20</i></td>
+                        <td><i>100</i></td>
                         <td>TSA Member (per year)</td>
                     </tr>
                 </tbody>

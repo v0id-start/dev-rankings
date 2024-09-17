@@ -7,15 +7,15 @@ import srIconURL from "../icons/sr_dev_icon.png";
 import guruIconURL from "../icons/guru_icon.png";
 
 const thresholds = [
-    { points: 100, title: "Intern", icon: internIconURL },
-    { points: 200, title: "Jr. Developer", icon: jrIconURL },
-    { points: 300, title: "Developer I", icon: dev1IconURL },
-    { points: 400, title: "Developer II", icon: dev2IconURL },
-    { points: 500, title: "Developer III", icon: dev3IconURL },
-    { points: 600, title: "Sr. Developer", icon: srIconURL },
+    { points: 500, title: "Intern", icon: internIconURL },
+    { points: 1000, title: "Jr. Developer", icon: jrIconURL },
+    { points: 1500, title: "Developer I", icon: dev1IconURL },
+    { points: 2000, title: "Developer II", icon: dev2IconURL },
+    { points: 2500, title: "Developer III", icon: dev3IconURL },
+    { points: 3000, title: "Sr. Developer", icon: srIconURL },
 ];
 
-const GURU_THRESHOLD = 600;
+const GURU_THRESHOLD = 1000000;
 const GURU_TITLE = "Guru";
 const GURU_ICON = guruIconURL;
 
