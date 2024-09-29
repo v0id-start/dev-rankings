@@ -6,29 +6,28 @@ import dev3IconURL from "../icons/dev_3_icon.png";
 import srIconURL from "../icons/sr_dev_icon.png";
 import guruIconURL from "../icons/guru_icon.png";
 
-const thresholds = [
-    { points: 500, title: "Intern", icon: internIconURL },
-    { points: 1000, title: "Jr. Developer", icon: jrIconURL },
-    { points: 1500, title: "Developer I", icon: dev1IconURL },
-    { points: 2000, title: "Developer II", icon: dev2IconURL },
-    { points: 2500, title: "Developer III", icon: dev3IconURL },
-    { points: 1000000, title: "Sr. Developer", icon: srIconURL },
-];
+export const thresholds = {
+    'INTERN': { points: 500, salary: 10, title: "Intern", color: "brown", icon: internIconURL },
+    'JR': { points: 1000, salary: 20, title: "Jr. Developer", color: "green", icon: jrIconURL },
+    'DEV_1': { points: 1500, salary: 30, title: "Developer I", color: "purple", icon: dev1IconURL },
+    'DEV_2': { points: 2000, salary: 40, title: "Developer II", color: "orange", icon: dev2IconURL },
+    'DEV_3': { points: 2500, salary: 50, title: "Developer III", color: "yellowgreen", icon: dev3IconURL },
+    'SR': { points: 1000000, salary: 60, title: "Sr. Developer", color: "red", icon: srIconURL }
+};
+
 
 const GURU_THRESHOLD = 1000000;
 const GURU_TITLE = "Guru";
 const GURU_ICON = guruIconURL;
 
-export const INTERN_THRESH = thresholds[0].points;
-export const JR_THRESH = thresholds[1].points;
-export const DEV_1_THRESH = thresholds[2].points;
-export const DEV_2_THRESH = thresholds[3].points;
-export const DEV_3_THRESH = thresholds[4].points;
-export const SENIOR_THRESH = thresholds[5].points;
+export const EXP_INCREMENT = 500;
 
 export function getRankImgURL(numPoints) {
-    for (const threshold of thresholds) {
-        if (numPoints < threshold.points) {
+
+    for (const key in thresholds) {
+        const threshold = thresholds[key];
+        
+        if (numPoints <= threshold.points) {
             return threshold.icon;
         }
     }
@@ -36,16 +35,35 @@ export function getRankImgURL(numPoints) {
 }
 
 export function getTitleFromPoints(numPoints) {
-    for (const threshold of thresholds) {
+
+    for (const key in thresholds) {
+        const threshold = thresholds[key];
+        
         if (numPoints < threshold.points) {
             return threshold.title;
         }
     }
+
     return GURU_TITLE;
 }
 
+export function getSalaryFromPoints(numPoints) {
+
+    for (const key in thresholds) {
+        const threshold = thresholds[key];
+        
+        if (numPoints < threshold.points) {
+            return threshold.salary;
+        }
+    }
+    return 0;
+}
+
 export function getNextThreshold(numPoints) {
-    for (const threshold of thresholds) {
+
+    for (const key in thresholds) {
+        const threshold = thresholds[key];
+        
         if (numPoints < threshold.points) {
             return threshold.points;
         }
