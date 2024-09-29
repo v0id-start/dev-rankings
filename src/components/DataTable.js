@@ -4,13 +4,14 @@ import '../css/leaderboard.css';
 import AddDevButton from './AddDevButton';
 import { collection, query, where, orderBy, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
-import { isAdmin, handlePointsUpdate, handleInputChange, handlePeriodsUpdate, handleBulkPointsUpdate } from '../utils/firebaseHelpers';
+import { isAdmin, handlePointsUpdate, handleInputChange, handlePeriodsUpdate, handleBulkPointsUpdate, payDevs, handlePcoinUpdate, handlePcoinInputChange } from '../utils/firebaseHelpers';
 import UserRow from './UserRow';
 import { ProgressBar } from 'react-bootstrap';
 
 const DataTable = ({ selectedPeriod, userEmail, bugSquashed }) => {
     const [users, setUsers] = useState([]);
     const [pointsInputs, setPointsInputs] = useState({});
+    const [pcoinInputs, setPcoinInputs] = useState({});
     const [selectedUsers, setSelectedUsers] = useState({});
 
     const IS_ADMIN = isAdmin(userEmail);
@@ -63,7 +64,9 @@ const DataTable = ({ selectedPeriod, userEmail, bugSquashed }) => {
                         <th>Name</th>
                         <th>Points</th>
                         <th>Promotion Progress</th>
+                        <th>₽coin</th>
                         <th>Period</th>
+                        {IS_ADMIN && <th>Add pcoin</th>}
                         {IS_ADMIN && <th>Add Points</th>}
                         {IS_ADMIN && <th>Delete User</th>}
                     </tr>
@@ -86,14 +89,22 @@ const DataTable = ({ selectedPeriod, userEmail, bugSquashed }) => {
                             key={user.id}
                             user={user}
                             index={index}
+
                             pointsInputs={pointsInputs}
                             handlePointsUpdate={handlePointsUpdate}
                             handleInputChange={handleInputChange}
                             setPointsInputs={setPointsInputs}
+
                             isAdmin={IS_ADMIN}
                             selectedUsers={selectedUsers}
                             setSelectedUsers={setSelectedUsers}
                             handlePeriodsUpdate={handlePeriodsUpdate}
+                            
+                            pcoinInputs={pcoinInputs}
+                            handlePcoinUpdate={handlePcoinUpdate}
+                            handlePcoinInputChange={handlePcoinInputChange}
+                            setPcoinInputs={setPcoinInputs}
+
                         />
                     ))}
                 </tbody>
@@ -109,11 +120,17 @@ const DataTable = ({ selectedPeriod, userEmail, bugSquashed }) => {
                     >
                         Update Points
                     </Button>
+                    <Button
+                        onClick={payDevs} 
+                        style={{ marginBottom: '10px', display: 'block', backgroundColor: 'green' }}
+                    >
+                        Pay Devs
+                    </Button>
                     <Button 
                         variant="danger" 
                         onClick={handleDeleteSelectedUsers} 
                         disabled={!Object.values(selectedUsers).some(value => value)}
-                        style={{ display: 'block' }}
+                        style={{ marginBottom: '10px', display: 'block' }}
                     >
                         Delete Selected Users
                     </Button>

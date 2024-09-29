@@ -28,7 +28,8 @@ export default function AddDevButton() {
       await setDoc(doc(db, "users", nameToAdd), {
         Name: nameToAdd,
         Period: periodToAdd.split(","),
-        Points: Number(pointsToAdd)
+        Points: Number(pointsToAdd),
+        pcoin: 0
       }).then(setValidated(true));
       setNameToAdd("");
       setPeriodToAdd("");

@@ -73,8 +73,8 @@
   }
   
   .centered-table-container {
-    width: 90%; /* Adjust the width to control how much of the screen the table occupies */
-    max-width: 1200px; /* Set a maximum width for larger screens */
+    width: 75%; /* Adjust the width to control how much of the screen the table occupies */
+    /* max-width: 1900px; /* Set a maximum width for larger screens */
     margin-top: 20px;
   }
 
