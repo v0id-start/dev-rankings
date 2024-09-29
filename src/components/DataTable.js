@@ -6,8 +6,9 @@ import { collection, query, where, orderBy, onSnapshot, deleteDoc, doc } from 'f
 import { db } from '../firebase/firebase';
 import { isAdmin, handlePointsUpdate, handleInputChange, handlePeriodsUpdate, handleBulkPointsUpdate } from '../utils/firebaseHelpers';
 import UserRow from './UserRow';
+import { ProgressBar } from 'react-bootstrap';
 
-const DataTable = ({ selectedPeriod, userEmail }) => {
+const DataTable = ({ selectedPeriod, userEmail, bugSquashed }) => {
     const [users, setUsers] = useState([]);
     const [pointsInputs, setPointsInputs] = useState({});
     const [selectedUsers, setSelectedUsers] = useState({});
@@ -68,6 +69,18 @@ const DataTable = ({ selectedPeriod, userEmail }) => {
                     </tr>
                 </thead>
                 <tbody>
+                    {bugSquashed && (
+                        <tr>
+                            <td>⌀</td>
+                            <td>v̶̨̛̐o̷̬̝͌̅͝ï̵͓͘d̷͚̳͗͆</td>
+                            <td><b>12101815</b></td>
+                            <td>
+                                <ProgressBar variant="custom" className="custom-progress-bar" now={0} />
+                            </td>
+                            <td>💅</td>
+                        </tr>
+                        
+                    )}
                     {users.map((user, index) => (
                         <UserRow
                             key={user.id}
