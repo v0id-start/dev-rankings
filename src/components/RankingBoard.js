@@ -12,7 +12,7 @@ import GainingExpTable from './GainingExpTable';
 //const memeRef = ref(storage, 'images/meme.png');
 //const memeURL = await getDownloadURL(memeRef);
 
-function RankingBoard({userEmail}) {
+function RankingBoard({userEmail, bugSquashed}) {
     const [selectedPeriod, selectPeriod] = useState("All");
     // This state will store the parsed data
 
@@ -27,7 +27,7 @@ function RankingBoard({userEmail}) {
       <div className="ranking-board-container">
         <h1 style={{ paddingTop: '32px'}}>{selectedPeriod === "All" ? "All Developers" : "Team " + selectedPeriod}</h1>
         <div className="centered-table-container">
-          <DataTable selectedPeriod={selectedPeriod} userEmail={userEmail}/>
+          <DataTable selectedPeriod={selectedPeriod} userEmail={userEmail} bugSquashed={bugSquashed}/>
           <br/>
           <br/>
           <br/>

@@ -9,6 +9,11 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 function App() {
   const [authEmail, setAuthEmail] = useState("");
+  const [bugSquashed, setBugSquashed] = useState(false); // Image is visible by default
+
+  const squashBug = () => {
+    setBugSquashed(true); // Hide the image when button is clicked
+  };
 
   const signInWithGoogle = async () => {
     const googleProvider = new GoogleAuthProvider();
@@ -31,7 +36,7 @@ function App() {
 
   return (
     <div className="App">
-      <RankingBoard userEmail={authEmail}/>
+      <RankingBoard userEmail={authEmail} bugSquashed={bugSquashed}/>
 
       <div id="firebaseui-auth-container"></div>
       <button onClick={signInWithGoogle}>
@@ -41,6 +46,11 @@ function App() {
         <button onClick={logout}>
           Sign Out
         </button>
+
+        {!bugSquashed && (
+          <img src="bug.png" alt="bug" onClick={squashBug} style={{ width: '30px', height: '30px', cursor: 'pointer'}}/>
+        )}
+
     </div>
   );
 }

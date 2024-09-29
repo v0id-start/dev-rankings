@@ -45,7 +45,7 @@ function ThresholdInfo() {
                     </tr>
 
                     <tr>
-                        <td><i>{CONSTANTS.SENIOR_THRESH}+</i></td>
+                        <td><i>1,000,000</i></td>
                         <td style={{color: "gold"}}><b>Guru</b></td>
                     </tr>
                 </tbody>
