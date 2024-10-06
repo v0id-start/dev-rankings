@@ -2,13 +2,14 @@ import React, { useRef } from 'react';
 import { useState } from 'react';
 import { ProgressBar, Button, Form } from 'react-bootstrap';
 import { getRankImgURL, getTitleFromPoints, getNextThreshold, isValidPeriodString } from '../utils/constants';
+import { handlePointsUpdate, handleInputChange, handlePeriodsUpdate, handlePcoinUpdate, handlePstockUpdate } from '../utils/firebaseHelpers';
+import EditableColumn from './EditableColumn';
 
-const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputChange, setPointsInputs, isAdmin, selectedUsers, setSelectedUsers, handlePeriodsUpdate, pcoinInputs, handlePcoinUpdate, handlePcoinInputChange, setPcoinInputs }) => {
+const UserRow = ({ isAdmin, user, index, pointsInputs, setPointsInputs, selectedUsers, setSelectedUsers, pcoinInputs, setPcoinInputs, pstockInputs, setPstockInputs }) => {
     const [periodInput, setPeriodInput] = useState(user.Period.join(","));
     const [periodError, setPeriodError] = useState("");
 
     const inputRef = useRef(null);
-    const pcoinInputRef = useRef(null);
 
     const handleCheckboxChange = (userId, isChecked) => {
         setSelectedUsers(prevState => ({
@@ -60,9 +61,29 @@ const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputCha
             <td>
                 <ProgressBar variant="custom" className="custom-progress-bar" now={user.Points >= 2500 ? 100 : ((user.Points - (getNextThreshold(user.Points) - 500)) / 500) * 100} />
             </td>
-            <td>
-                { user.pcoin }₽
-            </td>
+            {/* Pcoin column */}
+            <EditableColumn
+                isAdmin={isAdmin}
+                value={user.pcoin + "₽"}
+                userId={user.id}
+                columnKey="pcoin"
+                inputs={pcoinInputs}
+                setInputs={setPcoinInputs}
+                handleUpdate={handlePcoinUpdate}
+                placeholder="pcoin"
+            />
+
+            {/* Pstock column */}
+            <EditableColumn
+                isAdmin={isAdmin}
+                value={user.pstock + " shares"}
+                userId={user.id}
+                columnKey="pstock"
+                inputs={pstockInputs}
+                setInputs={setPstockInputs}
+                handleUpdate={handlePstockUpdate}
+                placeholder="pstock"
+            />
             <td>
                 {isAdmin ? (
                     <>
@@ -77,23 +98,6 @@ const UserRow = ({ user, index, pointsInputs, handlePointsUpdate, handleInputCha
                     user.Period.join(", ")
                 )}
             </td>
-            {isAdmin && (
-                <td>
-                    <Form.Group className="input-group">
-                        <Form.Control
-                            id={`pcoin-input-${index}`}
-                            type="number"
-                            placeholder="pcoin"
-                            value={pcoinInputs[user.id] || ''}
-                            onChange={(e) => handlePcoinInputChange(user.id, e.target.value, setPcoinInputs)}
-                            ref={pcoinInputRef}
-                        />
-                        <Button onClick={() => handlePcoinUpdate(user.id, pcoinInputs[user.id], pcoinInputs, setPcoinInputs)}>
-                            Add pcoin
-                        </Button>
-                    </Form.Group>
-                </td>
-            )}
             {isAdmin && (
                 <td>
                     <Form.Group className="input-group">

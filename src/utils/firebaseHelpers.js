@@ -38,6 +38,22 @@ export const handlePcoinUpdate = async (userId, pcoin, pcoinInputs, setPcoinInpu
     }
 };
 
+export const handlePstockUpdate = async (userId, pstock, pstockInputs, setPstockInputs) => {
+    if (!Number.isInteger(Number(pstock))) return;
+
+    try {
+        const userDoc = doc(db, 'users', userId);
+        await updateDoc(userDoc, {
+            pstock: increment(Number(pstock)),
+        });
+        const updatedInputs = { ...pstockInputs };
+        delete updatedInputs[userId];
+        setPstockInputs(updatedInputs);
+    } catch (error) {
+        console.error('Error updating pstock:', error);
+    }
+};
+
 export const handleInputChange = (userId, value, setPointsInputs) => {
     setPointsInputs((prevInputs) => ({
         ...prevInputs,
