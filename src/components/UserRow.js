@@ -76,7 +76,7 @@ const UserRow = ({ isAdmin, user, index, pointsInputs, setPointsInputs, selected
             {/* Pstock column */}
             <EditableColumn
                 isAdmin={isAdmin}
-                value={user.pstock + " shares"}
+                value={user.pstock + "₽"}
                 userId={user.id}
                 columnKey="pstock"
                 inputs={pstockInputs}

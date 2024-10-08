@@ -45,7 +45,9 @@ export const handlePstockUpdate = async (userId, pstock, pstockInputs, setPstock
         const userDoc = doc(db, 'users', userId);
         await updateDoc(userDoc, {
             pstock: increment(Number(pstock)),
+            pcoin: increment(Number(-pstock))
         });
+
         const updatedInputs = { ...pstockInputs };
         delete updatedInputs[userId];
         setPstockInputs(updatedInputs);
