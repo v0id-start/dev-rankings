@@ -29,7 +29,8 @@ export default function AddDevButton() {
         Name: nameToAdd,
         Period: periodToAdd.split(","),
         Points: Number(pointsToAdd),
-        pcoin: 0
+        pcoin: 0,
+        pstock: 0
       }).then(setValidated(true));
       setNameToAdd("");
       setPeriodToAdd("");

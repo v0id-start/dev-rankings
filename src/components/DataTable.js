@@ -4,7 +4,7 @@ import '../css/leaderboard.css';
 import AddDevButton from './AddDevButton';
 import { collection, query, where, orderBy, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
-import { isAdmin, handlePointsUpdate, handleInputChange, handlePeriodsUpdate, handleBulkPointsUpdate, payDevs, handlePcoinUpdate, handlePcoinInputChange } from '../utils/firebaseHelpers';
+import { isAdmin, handleBulkPointsUpdate, payDevs } from '../utils/firebaseHelpers';
 import UserRow from './UserRow';
 import { ProgressBar } from 'react-bootstrap';
 
@@ -12,6 +12,7 @@ const DataTable = ({ selectedPeriod, userEmail, bugSquashed }) => {
     const [users, setUsers] = useState([]);
     const [pointsInputs, setPointsInputs] = useState({});
     const [pcoinInputs, setPcoinInputs] = useState({});
+    const [pstockInputs, setPstockInputs] = useState({});
     const [selectedUsers, setSelectedUsers] = useState({});
 
     const IS_ADMIN = isAdmin(userEmail);
@@ -65,8 +66,10 @@ const DataTable = ({ selectedPeriod, userEmail, bugSquashed }) => {
                         <th>Points</th>
                         <th>Promotion Progress</th>
                         <th>₽coin</th>
-                        <th>Period</th>
                         {IS_ADMIN && <th>Add pcoin</th>}
+                        <th>₽Stocks</th>
+                        {IS_ADMIN && <th>Add ₽ Investments</th>}
+                        <th>Period</th>
                         {IS_ADMIN && <th>Add Points</th>}
                         {IS_ADMIN && <th>Delete User</th>}
                     </tr>
@@ -91,19 +94,17 @@ const DataTable = ({ selectedPeriod, userEmail, bugSquashed }) => {
                             index={index}
 
                             pointsInputs={pointsInputs}
-                            handlePointsUpdate={handlePointsUpdate}
-                            handleInputChange={handleInputChange}
                             setPointsInputs={setPointsInputs}
 
                             isAdmin={IS_ADMIN}
                             selectedUsers={selectedUsers}
                             setSelectedUsers={setSelectedUsers}
-                            handlePeriodsUpdate={handlePeriodsUpdate}
                             
                             pcoinInputs={pcoinInputs}
-                            handlePcoinUpdate={handlePcoinUpdate}
-                            handlePcoinInputChange={handlePcoinInputChange}
                             setPcoinInputs={setPcoinInputs}
+
+                            pstockInputs={pstockInputs}
+                            setPstockInputs={setPstockInputs}
 
                         />
                     ))}
